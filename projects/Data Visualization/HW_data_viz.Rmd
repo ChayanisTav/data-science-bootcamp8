@@ -1,0 +1,97 @@
+---
+title: "HW_Data_viz"
+author: "Chayanis Tavichai"
+date: "2023-11-26"
+output:
+  html_document:
+    df_print: paged
+---
+
+### Use diamonds dataset to create 5 charts
+
+```{r}
+library(ggplot2)
+data(diamonds)
+```
+
+#### Question 1: What is the distribution of diamond prices?
+
+```{r}
+q1 <- ggplot(diamonds, aes(x = price)) +
+  geom_histogram(binwidth = 500, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Diamond Prices",
+       x = "Price",
+       y = "Frequency")
+print(q1)
+```
+
+The distribution of diamond prices is right-skewed, indicating that a majority of diamonds have lower prices, with a few having significantly higher prices.
+
+#### Question 2: How does carat affect the price of diamonds?
+
+```{r}
+q2 <- ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.5, color = "darkred") +
+  labs(title = "Carat vs Price",
+       x = "Carat",
+       y = "Price")
+print(q2)
+```
+
+As carat weight increases, there is a positive correlation with the price of diamonds. Larger diamonds tend to be more expensive, as expected.
+
+#### Question 3: What is the average price of diamonds for each cut?
+
+```{r}
+q3 <- ggplot(diamonds, aes(x = cut, y = price, fill = cut)) +
+  geom_boxplot() +
+  labs(title = "Average Price by Cut",
+       x = "Cut",
+       y = "Price",
+       fill = "Cut")
+print(q3)
+```
+
+The average price varies across different cuts. Premium and Ideal cuts generally have higher average prices, while Fair and Good cuts tend to have lower average prices.
+
+#### Question 4: How does clarity affect the price of diamonds?
+
+```{r}
+q4 <- ggplot(diamonds, aes(x = clarity, y = price, fill = clarity)) +
+  geom_boxplot() +
+  labs(title = "Effect of Clarity on Price",
+       x = "Clarity",
+       y = "Price",
+       fill = "Clarity")
+print(q4)
+```
+
+There is a noticeable trend in which diamonds with higher clarity grades tend to have higher prices. The boxplots show a positive correlation between clarity and diamond prices.
+
+#### Question 5: What is the correlation between carat and price?
+
+```{r}
+q5 <- ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.5, color = "darkblue") +
+  geom_smooth(method = "lm", se = FALSE, color = "orange") +
+  labs(title = "Correlation between Carat and Price",
+       x = "Carat",
+       y = "Price")
+print(q5)
+```
+
+There is a positive linear correlation between carat and price. The scatter plot and the orange regression line illustrate that as carat increases, the price of diamonds tends to increase as well.
+
+#### Question 6: How does the price vary for different combinations of cut and color?
+
+```{r}
+q6 <- ggplot(diamonds, aes(x = cut, y = price, fill = color)) +
+  geom_bar(stat = "summary", fun = "mean", position = "dodge") +
+  labs(title = "Price Variation by Cut and Color",
+       x = "Cut",
+       y = "Price",
+       fill = "Color")
+print(q6)
+```
+
+The bar chart shows the average prices for different combinations of cut and color. It indicates that certain combinations, such as Ideal cut with higher color grades, tend to have higher average prices.
